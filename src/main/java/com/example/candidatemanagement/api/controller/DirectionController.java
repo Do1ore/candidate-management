@@ -3,6 +3,7 @@ package com.example.candidatemanagement.api.controller;
 import com.example.candidatemanagement.api.model.Direction;
 import com.example.candidatemanagement.api.repository.DirectionRepository;
 import com.example.candidatemanagement.api.specification.DirectionSpecification;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +20,6 @@ import java.util.UUID;
 @RequestMapping("/api/v1/direction")
 public class DirectionController {
 
-
     private final DirectionRepository directionRepository;
 
     @Autowired
@@ -31,9 +31,12 @@ public class DirectionController {
     public ResponseEntity<Page<Direction>> getDirection(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String description,
+            @RequestParam(defaultValue = "-1") int n0,
+            @RequestParam(defaultValue = "-1") int n,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size
+            @RequestParam(defaultValue = "10") int size
     ) {
+
         Pageable pageable = PageRequest.of(page, size);
 
         Specification<Direction> directionSpecification = Specification.where(null);
@@ -45,6 +48,11 @@ public class DirectionController {
         if (description != null) {
             directionSpecification = directionSpecification.and(DirectionSpecification.descriptionLike(description));
         }
+
+        if (n0 != -1 && n != -1) {
+            directionSpecification = directionSpecification.and(DirectionSpecification.fromN0toN(n0, n));
+        }
+
 
         Page<Direction> directions = directionRepository.findAll(directionSpecification, pageable);
 

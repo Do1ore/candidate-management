@@ -1,6 +1,7 @@
 package com.example.candidatemanagement.api.model;
 
 import jakarta.persistence.*;
+
 import java.util.UUID;
 
 @Entity
@@ -11,6 +12,9 @@ public class Direction {
     @GeneratedValue
     private UUID id;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "value")
+    private Long value;
     @Column(name = "name")
     private String name;
 
@@ -39,5 +43,13 @@ public class Direction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getValue() {
+        return value;
+    }
+
+    public void setValue(Long value) {
+        this.value = value;
     }
 }
