@@ -21,7 +21,7 @@ A brief description of what this project does and who it's for
 
 ## Enpoint exammple from Postman 
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](preview/Screenshot 2023-11-01 211326.png)
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
