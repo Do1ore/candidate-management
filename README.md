@@ -22,6 +22,6 @@ A brief description of what this project does and who it's for
 ## Enpoint exammple from Postman 
 
 ![App Screenshot](https://github.com/Do1ore/candidate-management/blob/master/preview/Screenshot%202023-11-01%20211326.png?raw=true)
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/Do1ore/candidate-management/blob/master/preview/Screenshot%202023-11-01%20212030.png?raw=true)
+![App Screenshot](https://github.com/Do1ore/candidate-management/blob/master/preview/Screenshot%202023-11-01%20212142.png?raw=true)
+
