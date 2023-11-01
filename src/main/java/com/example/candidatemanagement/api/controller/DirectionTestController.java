@@ -1,6 +1,5 @@
 package com.example.candidatemanagement.api.controller;
 
-import com.example.candidatemanagement.api.model.Direction;
 import com.example.candidatemanagement.api.model.DirectionTest;
 import com.example.candidatemanagement.api.repository.DirectionRepository;
 import com.example.candidatemanagement.api.repository.DirectionTestRepository;
@@ -33,10 +32,11 @@ public class DirectionTestController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DirectionTest>> getDirectionTest(@RequestParam(required = false) String name,
-                                                                @RequestParam(required = false) String description,
-                                                                @RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "5") int size) {
+    public ResponseEntity<Page<DirectionTest>> getDirectionTest(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String description,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
