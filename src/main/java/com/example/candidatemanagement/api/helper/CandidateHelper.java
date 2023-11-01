@@ -1,4 +1,4 @@
-package com.example.candidatemanagement.api.service;
+package com.example.candidatemanagement.api.helper;
 
 import com.example.candidatemanagement.api.model.Candidate;
 import com.example.candidatemanagement.api.specification.CandidateSpecification;

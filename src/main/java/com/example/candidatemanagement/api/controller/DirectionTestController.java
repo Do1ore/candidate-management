@@ -3,7 +3,7 @@ package com.example.candidatemanagement.api.controller;
 import com.example.candidatemanagement.api.model.DirectionTest;
 import com.example.candidatemanagement.api.repository.DirectionRepository;
 import com.example.candidatemanagement.api.repository.DirectionTestRepository;
-import com.example.candidatemanagement.api.service.DirectionTestHelper;
+import com.example.candidatemanagement.api.helper.DirectionTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

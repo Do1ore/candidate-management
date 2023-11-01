@@ -4,7 +4,7 @@ import com.example.candidatemanagement.api.model.Candidate;
 import com.example.candidatemanagement.api.model.Direction;
 import com.example.candidatemanagement.api.repository.CandidateRepository;
 import com.example.candidatemanagement.api.repository.DirectionRepository;
-import com.example.candidatemanagement.api.service.CandidateHelper;
+import com.example.candidatemanagement.api.helper.CandidateHelper;
 import com.example.candidatemanagement.api.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
