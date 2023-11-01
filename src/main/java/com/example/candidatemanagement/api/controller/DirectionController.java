@@ -41,14 +41,12 @@ public class DirectionController {
 
         Specification<Direction> directionSpecification = Specification.where(null);
 
-        if (name != null) {
+        if (Optional.ofNullable(name).isPresent()) {
             directionSpecification = directionSpecification.and(DirectionSpecification.nameLike(name));
         }
-
-        if (description != null) {
+        if (Optional.ofNullable(description).isPresent()) {
             directionSpecification = directionSpecification.and(DirectionSpecification.descriptionLike(description));
         }
-
         if (n0 != -1 && n != -1) {
             directionSpecification = directionSpecification.and(DirectionSpecification.fromN0toN(n0, n));
         }

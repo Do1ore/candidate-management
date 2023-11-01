@@ -6,8 +6,6 @@ import com.example.candidatemanagement.api.repository.CandidateRepository;
 import com.example.candidatemanagement.api.repository.DirectionRepository;
 import com.example.candidatemanagement.api.service.FileStorageService;
 import com.example.candidatemanagement.api.specification.CandidateSpecification;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +77,7 @@ public class CandidateController {
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "photo", required = false) MultipartFile photoFile,
             @RequestParam(value = "directions", required = false) List<UUID> directionIds,
-            @RequestParam(value = "cv", required = false) MultipartFile cvFile) throws IOException {
+            @RequestParam(value = "cv", required = false) MultipartFile cvFile) {
 
         Candidate candidate = new Candidate();
 
@@ -93,10 +90,10 @@ public class CandidateController {
         candidate.setMiddleName(middleName);
         candidate.setDescription(description);
 
-        if (cvFile != null) {
+        if (Optional.ofNullable(cvFile).isPresent()) {
             candidate.setCvFile(fileStorageService.storeCv(cvFile));
         }
-        if (photoFile != null) {
+        if (Optional.ofNullable(photoFile).isPresent()) {
             candidate.setPhoto(fileStorageService.storePhoto(photoFile));
         }
 
