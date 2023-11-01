@@ -3,7 +3,6 @@ package com.example.candidatemanagement.api.controller;
 import com.example.candidatemanagement.api.model.Direction;
 import com.example.candidatemanagement.api.repository.DirectionRepository;
 import com.example.candidatemanagement.api.specification.DirectionSpecification;
-import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.UUID;
 
+
+/**
+ * Controller to manage Direction entity
+ * @version 1.0
+ *
+ * @// TODO: 01.11.2023 cleanup controller
+ *
+ */
 @RestController
 @RequestMapping("/api/v1/direction")
 public class DirectionController {

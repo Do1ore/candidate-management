@@ -3,7 +3,7 @@ package com.example.candidatemanagement.api.controller;
 import com.example.candidatemanagement.api.model.DirectionTest;
 import com.example.candidatemanagement.api.repository.DirectionRepository;
 import com.example.candidatemanagement.api.repository.DirectionTestRepository;
-import com.example.candidatemanagement.api.specification.DirectionTestSpecification;
+import com.example.candidatemanagement.api.service.DirectionTestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 import java.util.UUID;
 
-
+/**
+ * Controller to manage DirectionTest entity
+ * @version 1.0
+ *
+ * @// TODO: 01.11.2023 cleanup controller
+ *
+ */
 @RestController
 @RequestMapping("/api/v1/direction-test")
 public class DirectionTestController {
@@ -40,19 +46,13 @@ public class DirectionTestController {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        Specification<DirectionTest> directionTestSpecification = Specification.where(null);
-        if (name != null) {
-            directionTestSpecification = directionTestSpecification.and(DirectionTestSpecification.nameLike(name));
-        }
-
-        if (description != null) {
-            directionTestSpecification = directionTestSpecification.and(DirectionTestSpecification.nameLike(description));
-        }
+        Specification<DirectionTest> directionTestSpecification = DirectionTestHelper.getDirectionTestSpecification(name, description);
 
         Page<DirectionTest> directionTests = directionTestRepository.findAll(directionTestSpecification, pageable);
         return ResponseEntity.ok(directionTests);
 
     }
+
 
     @PostMapping
     public ResponseEntity<DirectionTest> createTestDirection(@RequestBody DirectionTest directionTest) {

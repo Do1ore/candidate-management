@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class CandidateTest {
+public class CandidateDirectionTest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -4,8 +4,10 @@ import com.example.candidatemanagement.api.model.Candidate;
 import com.example.candidatemanagement.api.model.Direction;
 import com.example.candidatemanagement.api.repository.CandidateRepository;
 import com.example.candidatemanagement.api.repository.DirectionRepository;
+import com.example.candidatemanagement.api.service.CandidateHelper;
 import com.example.candidatemanagement.api.service.FileStorageService;
-import com.example.candidatemanagement.api.specification.CandidateSpecification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,14 +25,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-
+/**
+ * Controller to manage Candidate entity
+ * @version 1.0
+ *
+ * @// TODO: 01.11.2023 cleanup controller
+ *
+ */
 @RestController
 @RequestMapping("/api/v1/candidate")
 public class CandidateController {
 
+    Logger logger = LoggerFactory.getLogger(CandidateController.class);
     private final CandidateRepository candidateRepository;
 
     private final FileStorageService fileStorageService;
+
     private final DirectionRepository directionRepository;
 
     @Autowired
@@ -40,6 +50,19 @@ public class CandidateController {
         this.directionRepository = directionRepository;
     }
 
+    /**
+     * Comment example
+     * Method to access a list of candidates with optional filtering and sorting.
+     *
+     * @param firstName     The candidate's first name. Optional parameter.
+     * @param lastName      The candidate's last name. Optional parameter.
+     * @param middleName    The candidate's middle name. Optional parameter.
+     * @param description   The candidate's description. Optional parameter.
+     * @param page          The page number for pagination. Defaults to 0.
+     * @param size          The page size for pagination. Defaults to 10.
+     * @param sortParameter The parameter for sorting. Defaults to sorting by last name.
+     * @return A page of candidates that match the specified parameters.
+     */
     @GetMapping
     public Page<Candidate> getAllCandidates(
             @RequestParam(value = "firstName", required = false) String firstName,
@@ -50,24 +73,20 @@ public class CandidateController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(value = "sortParameter", defaultValue = "lastName", required = false) String sortParameter) {
 
+        logger.info("Getting all candidates with parameters: firstName={}, lastName={}, middleName={}, description={}, page={}, size={}, sortParameter={}",
+                firstName, lastName, middleName, description, page, size, sortParameter);
+
         Pageable pageable = PageRequest.of(page, size).withSort(Sort.by(sortParameter));
 
-        Specification<Candidate> candidateSpecification = Specification.where(null);
-        if (firstName != null) {
-            candidateSpecification = candidateSpecification.and(CandidateSpecification.firstnameLike(firstName));
-        }
-        if (lastName != null) {
-            candidateSpecification = candidateSpecification.and(CandidateSpecification.lastnameLike(lastName));
-        }
-        if (middleName != null) {
-            candidateSpecification = candidateSpecification.and(CandidateSpecification.middlenameLike(middleName));
-        }
-        if (description != null) {
-            candidateSpecification = candidateSpecification.and(CandidateSpecification.descriptionLike(description));
-        }
+        Specification<Candidate> candidateSpecification = CandidateHelper.getCandidateSpecification(firstName, lastName, middleName, description);
 
-        return candidateRepository.findAll(candidateSpecification, pageable);
+        var candidates = candidateRepository.findAll(candidateSpecification, pageable);
+
+        logger.info("Found {} candidates", candidates.getTotalElements());
+
+        return candidates;
     }
+
 
     @PostMapping
     public ResponseEntity<Candidate> createCandidate(
@@ -84,6 +103,7 @@ public class CandidateController {
         if (firstName.isEmpty() || lastName.isEmpty() || middleName.isEmpty() || description.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        logger.info("Creating candidate record...");
 
         candidate.setFirstName(firstName);
         candidate.setLastName(lastName);
@@ -105,9 +125,9 @@ public class CandidateController {
             }
             candidate.setPossibleDirections(directions);
         }
-
-
-        return ResponseEntity.ok(candidateRepository.save(candidate));
+        var createdData = candidateRepository.save(candidate);
+        logger.info("Candidate created: {}", createdData.getId());
+        return ResponseEntity.ok(createdData);
     }
 
     @PutMapping("/{id}")
@@ -157,8 +177,9 @@ public class CandidateController {
             }
             candidate.setPossibleDirections(directions);
         }
-
-        return ResponseEntity.ok(candidateRepository.save(candidate));
+        var result = ResponseEntity.ok(candidateRepository.save(candidate));
+        logger.info("Creating candidate record...");
+        return result;
     }
 
 }
