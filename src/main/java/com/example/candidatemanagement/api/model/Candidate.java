@@ -1,6 +1,8 @@
 package com.example.candidatemanagement.api.model;
 
 import jakarta.persistence.*;
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +24,7 @@ public class Candidate {
     private String middleName;
 
     @Column(name = "photo")
+
     private String photo;
 
     @Column(name = "description")
