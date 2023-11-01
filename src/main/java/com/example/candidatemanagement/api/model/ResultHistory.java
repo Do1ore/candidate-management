@@ -1,6 +1,7 @@
 package com.example.candidatemanagement.api.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CollectionId;
 
 import java.util.Date;
 
@@ -11,8 +12,9 @@ public class ResultHistory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "date")
     private Date date;
-
+    @Column(name = "score")
     private Integer score;
 
     @ManyToOne
