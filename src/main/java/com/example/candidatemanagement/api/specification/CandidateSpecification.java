@@ -6,19 +6,19 @@ import org.springframework.data.jpa.domain.Specification;
 public class CandidateSpecification {
 
     public static Specification<Candidate> lastnameLike(String lastName) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")),
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get("last_name")),
                 "%" + lastName.toLowerCase() + "%");
 
     }
 
-    public static Specification<Candidate> firstnameLike(String first_name) {
+    public static Specification<Candidate> firstnameLike(String firstName) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get("first_name")),
-                "%" + first_name.toLowerCase() + "%");
+                "%" + firstName.toLowerCase() + "%");
     }
 
-    public static Specification<Candidate> middlenameLike(String middle_name) {
+    public static Specification<Candidate> middlenameLike(String middleName) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get("middle_name")),
-                "%" + middle_name.toLowerCase() + "%");
+                "%" + middleName.toLowerCase() + "%");
     }
 
     public static Specification<Candidate> descriptionLike(String description) {
